@@ -18,11 +18,15 @@ Or install it yourself as:
 
 ## Usage
 
-ccu = AkamaiRestCcu::Ccu.new("username", password")
-ccu.purge_urls(["http://www.strikingly.com/jobs"])
-ccu.purge_cpcode(['123456'], {:domain => 'staging'})
-ccu.purge_status('/ccu/v2/purges/123a-def-123-891-99aebc3')
-ccu.queue_length
+    ccu = AkamaiRestCcu::Ccu.new("username", password")
+
+    ccu.purge_urls(["http://www.strikingly.com/jobs"])
+
+    ccu.purge_cpcode(['123456'], {:domain => 'staging'})
+
+    ccu.purge_status('/ccu/v2/purges/123a-def-123-891-99aebc3')
+
+    ccu.queue_length
 
 ## Contributing
 
