@@ -24,7 +24,7 @@ module AkamaiRestCcu
         URI.join(@base_uri.to_s, path).to_s,
         { 'Content-Type' => 'application/json' }
       )
-      send(request)
+      send_req(request)
     end
 
     def post(path, payload = {})
@@ -33,12 +33,12 @@ module AkamaiRestCcu
         { 'Content-Type' => 'application/json' }
       )
       request.body = payload.to_json
-      send(request)
+      send_req(request)
     end
 
     private
 
-    def send(request)
+    def send_req(request)
       response = @http.request(request)
       case response
       when Net::HTTPBadRequest
