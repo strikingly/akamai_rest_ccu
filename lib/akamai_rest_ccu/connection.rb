@@ -40,25 +40,18 @@ module AkamaiRestCcu
 
     def send_req(request)
       response = @http.request(request)
-      case response
-      when Net::HTTPBadRequest
-        raise Errors::BadRequest, response.body
-      when Net::HTTPUnauthorized
-        raise Errors::Unauthorized, response.body
-      when Net::HTTPForbidden
-        raise Errors::Forbidden, response.body
-      when Net::HTTPRequestEntityTooLarge
+      case response.code
+      when '201'
+        response.body
+      when '413'
         raise Errors::RequestEntityTooLarge, response.body
-      when Net::HTTPTooManyRequests
+      when '429'
         raise Errors::TooManyRequests, response.body
-      when Net::HTTPInsufficientStorage
+      when '507'
         raise Errors::Insufficient, response.body
-      when Net::HTTPUnsupportedMediaType
-        raise Errors::UnsupportedMediaType, response.body
-      when Net::HTTPInternalServerError
-        raise Errors::HTTPInternalServerError, response.body
+      else
+        raise Errors::HTTPBasicErrors, response.body
       end
-      response.body
     end
   end
 end
